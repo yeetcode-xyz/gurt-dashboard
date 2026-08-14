@@ -1,0 +1,10 @@
+# This repository is PUBLIC. Everything below would be a live credential in it.
+.streamlit/secrets.toml
+.env
+.env.*
+!.env.example
+
+.venv/
+__pycache__/
+*.pyc
+.DS_Store

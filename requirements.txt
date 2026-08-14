@@ -1,0 +1,5 @@
+streamlit>=1.40
+pandas>=2.2
+# psycopg 3, not psycopg2: it ships wheels for current Pythons and takes the
+# TLS settings as plain keyword arguments, which is what the Supabase CA needs.
+psycopg[binary]>=3.2
