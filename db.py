@@ -178,7 +178,6 @@ def missing_tables() -> list[str]:
 ALL_TABLES = [
     "api_check_result",
     "breaking_change",
-    "call_site_pattern",
     "codemod",
     "derived_spec",
     "gurt_migration",
@@ -186,7 +185,10 @@ ALL_TABLES = [
     "learned_spec",
     "migration_attempt",
     "package_preference",
+    "probe_result",
+    "registry_fact",
     "repo_snapshot",
     "route_mapping",
+    "spec_document",
     "spec_snapshot",
 ]

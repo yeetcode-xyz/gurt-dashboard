@@ -55,10 +55,17 @@ it is not in the system trust store and a verifying connection fails without it.
 
 ## What it reads
 
-**Postgres only** — all 13 tables. The other two stores are deliberately out of
-scope: `GURT_KNOWLEDGE_DIR` (probe and registry caches) and `GURT_STATE_DIR`
-(the job journal) are JSON files on whichever machine ran the job, TTL'd and
-local, so nothing remote can read them.
+**Postgres only** — all 15 tables. `GURT_STATE_DIR` (the job journal) is
+deliberately out of scope: it is JSON on whichever machine ran the job.
+
+Two of those tables are new and are caches rather than history: `registry_fact`
+(what npm/PyPI said a package's latest version is) and `probe_result` (what a
+live endpoint answered). They moved out of `GURT_KNOWLEDGE_DIR` and into the
+database in Aug 2026, because a disk cache does not exist on a deployed instance
+that has no disk — which is to say it had never once been used in production.
+`spec_document` joins them: a provider's OpenAPI contract, kept **only** so the
+next fetch can be a conditional request. All three are fleet-wide, hold no
+repository data, and are safe to truncate — the next run simply re-asks.
 
 Remote connections are verified against the vendored CA in `certs/`. Local
 connections skip TLS, because a container Postgres does not speak it. `sslmode`
